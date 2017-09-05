@@ -32,9 +32,8 @@ typedef	unsigned char uschar;
 
 #define	xfree(a)	{ if ((a) != NULL) { free((void *) (a)); (a) = NULL; } }
 
-#define	NN(p)	((p) ? (p) : "(null)")	/* guaranteed non-null for dprintf 
-*/
-#define	DEBUG
+#define	NN(p)	((p) ? (p) : "(null)")	/* guaranteed non-null for dprintf */
+
 #ifdef	DEBUG
 			/* uses have to be doubly parenthesized */
 #	define	dprintf(x)	if (dbg) printf x
@@ -44,6 +43,7 @@ typedef	unsigned char uschar;
 
 extern int	compile_time;	/* 1 if compiling, 0 if running */
 extern int	safe;		/* 0 => unsafe, 1 => safe */
+extern int	json;		/* 0 => normal, 1 => json */
 
 #define	RECSIZE	(8 * 1024)	/* sets limit on records, fields, etc., etc. */
 extern int	recsize;	/* size of current record, orig RECSIZE */

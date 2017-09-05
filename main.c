@@ -53,6 +53,7 @@ int	npfile = 0;	/* number of filenames */
 int	curpfile = 0;	/* current filename */
 
 int	safe	= 0;	/* 1 => "safe" mode */
+int	json	= 0;	/* 1 => "json" mode */
 
 int main(int argc, char *argv[])
 {
@@ -63,7 +64,7 @@ int main(int argc, char *argv[])
 	cmdname = argv[0];
 	if (argc == 1) {
 		fprintf(stderr, 
-		  "usage: %s [-F fs] [-v var=value] [-f progfile | 'prog'] [file ...]\n", 
+		  "usage: %s [-F fs] [-v var=value] [-j] [-f progfile | 'prog'] [file ...]\n", 
 		  cmdname);
 		exit(1);
 	}
@@ -89,6 +90,9 @@ int main(int argc, char *argv[])
 		case 's':
 			if (strcmp(argv[1], "-safe") == 0)
 				safe = 1;
+			break;
+		case 'j':
+			json = 1;
 			break;
 		case 'f':	/* next argument is program filename */
 			if (argv[1][2] != 0) {  /* arg is -fsomething */
