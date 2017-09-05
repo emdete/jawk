@@ -1,0 +1,14 @@
+*.bb
+*.bbg
+*.da
+*.gcda
+*.gcno
+*.gcov
+*.o
+*.obj
+jawk
+maketab
+proctab.c
+proctab.c
+ytab.c
+ytab.h
