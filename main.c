@@ -24,7 +24,6 @@ THIS SOFTWARE.
 
 const char	*version = "version 20121220";
 
-#define DEBUG
 #include <stdio.h>
 #include <ctype.h>
 #include <locale.h>

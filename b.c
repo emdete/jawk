@@ -24,8 +24,6 @@ THIS SOFTWARE.
 
 /* lasciate ogne speranza, voi ch'intrate. */
 
-#define	DEBUG
-
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
