@@ -21,7 +21,7 @@
 # ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 # THIS SOFTWARE.
 # ****************************************************************/
-.PHONY: bundle tar names clean run all
+.PHONY: bundle tar names clean run all dbg
 
 #CFLAGS = -g -DDEBUG -Wall -pedantic -fno-strict-aliasing `pkg-config --cflags json-c`
 CFLAGS = -O4 -static `pkg-config --cflags json-c`
@@ -91,5 +91,5 @@ dbg:
 	ddd ./jawk
 
 clean:
-	rm -f jawk *.o *.obj maketab maketab.exe *.bb *.bbg *.da *.gcov *.gcno *.gcda proctab.c
+	rm -f jawk *.o *.obj maketab maketab.exe *.bb *.bbg *.da *.gcov *.gcno *.gcda proctab.c ytab.h ytab.c
 
