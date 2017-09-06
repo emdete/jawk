@@ -27,9 +27,9 @@ by Al Aho, Brian Kernighan, and Peter Weinberger
 (Addison-Wesley, 1988, ISBN 0-201-07981-X).
 
 Changes, mostly bug fixes and occasional enhancements, are listed
-in FIXES.  If you distribute this code further, please please please
-distribute FIXES with it.  If you find errors, please report them
-to bwk@cs.princeton.edu.  Thanks.
+in FIXES. If you distribute this code further, please please please
+distribute FIXES with it. If you find errors, please report them
+to bwk@cs.princeton.edu. Thanks.
 
 The program itself is created by
 	make
@@ -57,25 +57,25 @@ This produces an executable a.out; you will eventually want to
 move this to some place like /usr/bin/awk.
 
 If your system does not have yacc or bison (the GNU
-equivalent), you must compile the pieces manually.  We have
+equivalent), you must compile the pieces manually. We have
 included yacc output in ytab.c and ytab.h, and backup copies in
-case you overwrite them.  We have also included a copy of
+case you overwrite them. We have also included a copy of
 proctab.c so you do not need to run maketab.
 
-NOTE: This version uses ANSI C, as you should also.  We have
+NOTE: This version uses ANSI C, as you should also. We have
 compiled this without any changes using gcc -Wall and/or local C
 compilers on a variety of systems, but new systems or compilers
 may raise some new complaint; reports of difficulties are
 welcome.
 
 This also compiles with Visual C++ on all flavors of Windows,
-*if* you provide versions of popen and pclose.  The file
+*if* you provide versions of popen and pclose. The file
 missing95.c contains versions that can be used to get started
 with, though the underlying support has mysterious properties,
-the symptom of which can be truncated pipe output.  Beware.  The
+the symptom of which can be truncated pipe output. Beware. The
 file makefile.win gives hints on how to proceed; if you run
 vcvars32.bat, it will set up necessary paths and parameters so
-you can subsequently run nmake -f makefile.win.  Beware also that
+you can subsequently run nmake -f makefile.win. Beware also that
 when running on Windows under command.com, various quoting
 conventions are different from Unix systems: single quotes won't
 work around arguments, and various characters like % are
@@ -89,6 +89,6 @@ file "buildmac" provided by Dan Allen (danallen@microsoft.com),
 to whom many thanks.
 
 The version of malloc that comes with some systems is sometimes
-astonishly slow.  If awk seems slow, you might try fixing that.
+astonishly slow. If awk seems slow, you might try fixing that.
 More generally, turning on optimization can significantly improve
 awk's speed, perhaps by 1/3 for highest levels.
