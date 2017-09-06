@@ -25,14 +25,15 @@ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 ```
 
-Json plus awk
-=============
+awk joins json!
+===============
 
 as a big fan of `awk` to do quick investigation i was a bit lost when we
 switched to json. we have a json record per line, millions of lines a day - a
-proper challange for a unix tool like awk.
+proper challange for a unix tool like awk if only awk could use the names
+instead of the field positions.
 
-First idea was to use the names instead of number. We have records like this:
+First idea was to use the names instead of number. We have records like:
 
 	`{"abc":"3","xyz":"foo"}`
 
