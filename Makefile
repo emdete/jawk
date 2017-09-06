@@ -24,7 +24,7 @@
 .PHONY: bundle tar names clean run all dbg
 
 #CFLAGS = -g -DDEBUG -Wall -pedantic -fno-strict-aliasing `pkg-config --cflags json-c`
-CFLAGS = -O4 -static `pkg-config --cflags json-c`
+CFLAGS = -static -O4 `pkg-config --cflags json-c`
 
 #CC = gcc -Wall -g -Wwrite-strings
 #CC = gcc -fprofile-arcs -ftest-coverage # then gcov f1.c; cat f1.c.gcov
@@ -82,13 +82,13 @@ names:
 	@echo $(LISTING)
 
 run: jawk
-	echo '{"abc":"3","xyz":"foo"}' | ./jawk -j '{print $$abc, $$xyz}' | tee /tmp/jawk.log
+	/bin/echo -e '{"xyz":"foo"}\n{"abc":"3","xyz":"foo"}\n{"abc":"foo"}' | ./jawk -j 'BEGIN{abc=-1}{if (abc>0){print $$abc, $$xyz, xyz}}' | tee /tmp/jawk.log
 
 man:
 	nroff -mandoc jawk.1 | less
 
 dbg:
-	ddd ./jawk
+	./deploy
 
 clean:
 	rm -f jawk *.o *.obj maketab maketab.exe *.bb *.bbg *.da *.gcov *.gcno *.gcda proctab.c ytab.h ytab.c
