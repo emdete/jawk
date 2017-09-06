@@ -146,7 +146,7 @@ Cell *execute(Node *u)	/* execute a node of the parse tree */
 		curnode = a;
 		if (isvalue(a)) {
 			x = (Cell *) (a->narg[0]);
-			if (isfld(x) && !donefld)
+			if (!donefld)
 				fldbld();
 			else if (isrec(x) && !donerec)
 				recbld();
@@ -156,7 +156,7 @@ Cell *execute(Node *u)	/* execute a node of the parse tree */
 			FATAL("illegal statement");
 		proc = proctab[a->nobj-FIRSTTOKEN];
 		x = (*proc)(a->narg, a->nobj);
-		if (isfld(x) && !donefld)
+		if (!donefld)
 			fldbld();
 		else if (isrec(x) && !donerec)
 			recbld();

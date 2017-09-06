@@ -58,18 +58,3 @@ Usage
 
 The feature is off by default and must be enabled by the commandline option
 `-j`.
-
-Bugs
-====
-
-There is a bug where jawk issues the error:
-
-```
-./jawk: illegal field $(), name "abc"
- input record number 1, file
- source line number 1
-```
-
-it can be avoided by accessing number fields once (i.e. by having a `$1{}` in
-the beginning of the program).
-

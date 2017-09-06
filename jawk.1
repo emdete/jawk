@@ -7,13 +7,16 @@
 .fi
 .ft 1
 ..
-awk
-.TH AWK 1
+jawk
+.TH JAWK 1
 .CT 1 files prog_other
 .SH NAME
-awk \- pattern-directed scanning and processing language
+jawk \- pattern-directed scanning and processing language
 .SH SYNOPSIS
-.B awk
+.B jawk
+[
+.BI \-j
+]
 [
 .BI \-F
 .I fs
@@ -49,7 +52,7 @@ matches the pattern.
 Each line is matched against the
 pattern portion of every pattern-action statement;
 the associated action is performed for each matched pattern.
-The file name 
+The file name
 .B \-
 means the standard input.
 Any
@@ -87,11 +90,25 @@ If
 .BR FS
 is null, the input line is split into one field per character.
 .PP
+Json mode can be enabled by
+.B \-j
+to parse each line instead of splitting. Parsing errors will terminate jawk
+with an error message. Each line must contain a valid Json snippet and must
+contain a dictionary. Fields are still put in
+.BR $1 ,
+.BR $2 ,
+and
+.B $0
+is available (raw, unparsed line). The keys in the dictionary will end in
+variables available in jawk with the corresponding index of the field. This
+allows to access a field from the dictionary with key "foo" as
+.BR $foo .
+.PP
 A pattern-action statement has the form
 .IP
 .IB pattern " { " action " }
 .PP
-A missing 
+A missing
 .BI { " action " }
 means print the line;
 a missing pattern always matches.
@@ -145,7 +162,7 @@ The operators
 are also available in expressions.
 Variables may be scalars, array elements
 (denoted
-.IB x  [ i ] )
+.IB x [ i ] )
 or fields.
 Variables are initialized to the null string.
 Array subscripts may be any string,
@@ -195,7 +212,7 @@ The mathematical functions
 .BR sin ,
 .BR cos ,
 and
-.BR atan2 
+.BR atan2
 are built in.
 Other built-in functions:
 .TF length
@@ -224,7 +241,7 @@ the
 substring of
 .I s
 that begins at position
-.IR m 
+.IR m
 counted from 1.
 .TP
 .BI index( s , " t" )
@@ -352,7 +369,7 @@ Patterns are arbitrary Boolean combinations
 of regular expressions and
 relational expressions.
 Regular expressions are as in
-.IR egrep ; 
+.IR egrep ;
 see
 .IR grep (1).
 Isolated regular expressions
@@ -512,13 +529,13 @@ BEGIN	{	# Simulate echo(1)
 .fi
 .EE
 .SH SEE ALSO
-.IR lex (1), 
+.IR lex (1),
 .IR sed (1)
 .br
 A. V. Aho, B. W. Kernighan, P. J. Weinberger,
 .I
 The AWK Programming Language,
-Addison-Wesley, 1988.  ISBN 0-201-07981-X
+Addison-Wesley, 1988. ISBN 0-201-07981-X
 .SH BUGS
 There are no explicit conversions between numbers and strings.
 To force an expression to be treated as a number add 0 to it;
