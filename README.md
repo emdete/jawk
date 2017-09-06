@@ -1,5 +1,8 @@
+AWK JOINS JSON!
+===============
+
 Disclaimer
-==========
+----------
 
 ```
 Copyright (C) Lucent Technologies 1997
@@ -25,13 +28,16 @@ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 ```
 
-awk joins json!
-===============
+The Itch
+--------
 
-as a big fan of `awk` to do quick investigation i was a bit lost when we
-switched to json. we have a json record per line, millions of lines a day - a
+As a big fan of `awk` to do quick investigation i was a bit lost when we
+switched to json. We have a json record per line, millions of lines a day - a
 proper challange for a unix tool like awk if only awk could use the names
 instead of the field positions.
+
+Description
+-----------
 
 First idea was to use the names instead of number. We have records like:
 
@@ -54,7 +60,7 @@ usecase (we write exactly that kind of file, i control the variable names in
 json and awk).
 
 Usage
-=====
+-----
 
 The feature is off by default and must be enabled by the commandline option
 `-j`.
