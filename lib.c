@@ -285,42 +285,44 @@ void fldbld(void)	/* create fields from current record */
 	i = 0;	/* number of fields accumulated here */
 	strcpy(inputFS, *FS);
 	if (json) {
-		struct json_tokener* tok = json_tokener_new();
-		struct json_object* obj = json_tokener_parse_ex(tok, r, strlen(r));
-		if (obj == NULL) {
-			enum json_tokener_error err = json_tokener_get_error(tok);
-			FATAL("Json error parsing %d", err);
-		}
-		enum json_type typ = json_object_get_type(obj);
-		if (typ != json_type_object)
-			FATAL("Json error wrong type %d", typ);
-		json_object_object_foreach(obj, key, val) {
-			i++;
-			if (i > nfields)
-				growfldtab(i);
-			if (freeable(fldtab[i]))
-				xfree(fldtab[i]->sval);
-			typ = json_object_get_type(val);
-			switch (typ) {
-			case json_type_string:
-				fldtab[i]->sval = tostring(json_object_get_string(val));
-				fldtab[i]->tval = FLD | STR;
-				break;
-			case json_type_null:
-			case json_type_boolean: // json_object_get_boolean(val)?"true":"false"
-			case json_type_double: // json_object_get_double(val)
-			case json_type_int: // json_object_get_int64(val)
-			default:
-				FATAL("Json error wrong type %d", typ);
+		static struct json_tokener* tok = NULL;
+		if (tok == NULL)
+			tok =json_tokener_new();
+		if (*r) { /* the BEGIN section comes through with an empty line?! */
+			struct json_object* obj = json_tokener_parse_ex(tok, r, strlen(r));
+			if (obj == NULL) {
+				enum json_tokener_error err = json_tokener_get_error(tok);
+				FATAL("Json error parsing %d '%s'", err, r);
 			}
-			Cell* q = setsymtab(key, NULL, i, NUM, symtab);
-			setfval(q, i);
-			dprintf( ("Json field %s(%d)=%s", key, i, fldtab[i]->sval) );
-			q = lookup(key, symtab);
-			dprintf( ("Awk %s(%f)=%s\n", q->nval, q->fval, fldtab[i]->sval) );
+			enum json_type typ = json_object_get_type(obj);
+			if (typ != json_type_object)
+				FATAL("Json error wrong type %d", typ);
+			json_object_object_foreach(obj, key, val) {
+				i++;
+				if (i > nfields)
+					growfldtab(i);
+				if (freeable(fldtab[i]))
+					xfree(fldtab[i]->sval);
+				typ = json_object_get_type(val);
+				switch (typ) {
+				case json_type_string:
+					fldtab[i]->sval = tostring(json_object_get_string(val));
+					fldtab[i]->tval = FLD | STR;
+					break;
+				case json_type_null:
+				case json_type_boolean: /* json_object_get_boolean(val)?"true":"false" */
+				case json_type_double: /* json_object_get_double(val) */
+				case json_type_int: /* json_object_get_int64(val) */
+				default:
+					FATAL("Json error wrong type %d", typ);
+				}
+				Cell* q = setsymtab(key, NULL, i, NUM, symtab);
+				setfval(q, i);
+				dprintf( ("Json field %s(%d)=%s", key, i, fldtab[i]->sval) );
+			}
 		}
 		json_tokener_reset(tok);
-		json_tokener_free(tok);
+		//json_tokener_free(tok); tok = NULL;
 	} else if (strlen(inputFS) > 1) {	/* it's a regular expression */
 		i = refldbld(r, inputFS);
 	} else if ((sep = *inputFS) == ' ') {	/* default whitespace */
