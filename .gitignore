@@ -6,9 +6,9 @@
 *.gcov
 *.o
 *.obj
+*.sw?
 jawk
 maketab
-proctab.c
 proctab.c
 ytab.c
 ytab.h
