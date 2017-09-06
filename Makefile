@@ -23,9 +23,8 @@
 # ****************************************************************/
 .PHONY: bundle tar names clean run all
 
-#CFLAGS = -g -Wall -pedantic -DDEBUG
-#CFLAGS = -O2 -Wall -pedantic -fno-strict-aliasing
-CFLAGS = -O4 -static `pkg-config --cflags json-c`
+CFLAGS = -g -DDEBUG -Wall -pedantic -fno-strict-aliasing `pkg-config --cflags json-c`
+#CFLAGS = -O4 -static `pkg-config --cflags json-c`
 
 #CC = gcc -Wall -g -Wwrite-strings
 #CC = gcc -fprofile-arcs -ftest-coverage # then gcov f1.c; cat f1.c.gcov
@@ -83,7 +82,10 @@ names:
 	@echo $(LISTING)
 
 run: jawk
-	echo '{"abc":"3","xyz":"foo"}' | ./jawk -j '{print $$1, $$2, $$abc, $$xyz}' | tee /tmp/jawk.log
+	echo '{"abc":"3","xyz":"foo"}' | ./jawk -j '{$$1}{print $$abc, $$xyz}' | tee /tmp/jawk.log
+
+dbg:
+	ddd ./jawk
 
 clean:
 	rm -f jawk *.o *.obj maketab maketab.exe *.bb *.bbg *.da *.gcov *.gcno *.gcda # proctab.c
